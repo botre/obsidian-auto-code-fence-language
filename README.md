@@ -2,6 +2,24 @@
 
 Obsidian plugin that automatically detects and adds programming languages to unlabeled code fences.
 
+## How it works
+
+When you save a file containing code blocks like:
+
+```
+function hello() {
+    console.log("Hello World");
+}
+```
+
+The plugin automatically detects the language and updates it to:
+
+```javascript
+function hello() {
+    console.log("Hello World");
+}
+```
+
 ## Supported languages
 
 The plugin currently supports detection for the following languages:
@@ -28,24 +46,6 @@ The plugin currently supports detection for the following languages:
 - yaml
 
 Feel free to request additional languages.
-
-## How it works
-
-When you save a file containing code blocks like:
-
-```
-function hello() {
-    console.log("Hello World");
-}
-```
-
-The plugin automatically detects the language and updates it to:
-
-```javascript
-function hello() {
-    console.log("Hello World");
-}
-```
 
 ## Known issues
 
