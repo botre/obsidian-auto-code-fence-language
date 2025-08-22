@@ -16,7 +16,7 @@ The plugin automatically detects the language and updates it to:
 
 ```javascript
 function hello() {
-    console.log("Hello World");
+  console.log("Hello World");
 }
 ```
 
