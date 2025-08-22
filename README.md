@@ -6,19 +6,23 @@ Obsidian plugin that automatically detects and adds programming languages to unl
 
 When you save a file containing code blocks like:
 
+<pre>
 ```
 function hello() {
     console.log("Hello World");
 }
 ```
+</pre>
 
 The plugin automatically detects the language and updates it to:
 
+<pre>
 ```javascript
 function hello() {
   console.log("Hello World");
 }
 ```
+</pre>
 
 ## Supported languages
 
