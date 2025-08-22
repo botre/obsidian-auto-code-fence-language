@@ -1,6 +1,6 @@
 import { Editor, MarkdownView, Plugin, TFile } from "obsidian";
-import { Magika } from "magika";
-import type { MagikaResult } from "magika/src/magika-result";
+// @ts-expect-error: Cannot find module
+import { GuessLang } from "@ray-d-song/guesslang-js";
 
 interface CodeFence {
   content: string;
@@ -10,15 +10,12 @@ interface CodeFence {
 }
 
 export default class AutoCodeFenceLanguagePlugin extends Plugin {
-  private magika: Magika | null = null;
+  private guessLang: GuessLang | null = null;
 
   async onload() {
-    console.log("Loading Magika...");
-    this.magika = await Magika.create();
-    console.log("Magika loaded");
+    this.guessLang = new GuessLang();
     this.registerEvent(
       this.app.vault.on("modify", (file) => {
-        console.log("File modified:", file.path);
         if (file instanceof TFile) {
           this.handleFileModify(file);
         }
@@ -81,50 +78,25 @@ export default class AutoCodeFenceLanguagePlugin extends Plugin {
   }
 
   async detectLanguage(content: string): Promise<string | null> {
-    if (!this.magika) {
+    if (!this.guessLang) {
       return null;
     }
     try {
-      const fileBytes = new TextEncoder().encode(content);
-      const prediction = await this.magika.identifyBytes(fileBytes);
-      return this.mapMagikaToLanguage(prediction);
+      const predictions = await this.guessLang.runModel(content);
+      const [bestPrediction] = predictions;
+      if (!bestPrediction) {
+        return null;
+      }
+      console.log(
+        `Detected language: ${bestPrediction.languageId} with confidence ${bestPrediction.confidence}`,
+      );
+      if (bestPrediction.confidence < 0.2) {
+        return null;
+      }
+      return bestPrediction.languageId;
     } catch (error) {
       return null;
     }
-  }
-
-  private supportedLanguages = [
-    "bash",
-    "c",
-    "cpp",
-    "csharp",
-    "css",
-    "go",
-    "html",
-    "java",
-    "javascript",
-    "json",
-    "markdown",
-    "php",
-    "python",
-    "ruby",
-    "rust",
-    "shell",
-    "sql",
-    "typescript",
-    "xml",
-    "yaml",
-  ];
-
-  mapMagikaToLanguage(result: MagikaResult): string | null {
-    const prediction = result.prediction;
-    const magikaLabel = prediction.dl.label;
-    if (!magikaLabel) return null;
-
-    const detectedLanguage = magikaLabel.toLowerCase();
-    return this.supportedLanguages.includes(detectedLanguage)
-      ? detectedLanguage
-      : null;
   }
 
   updateFenceLanguage(editor: Editor, startLine: number, language: string) {

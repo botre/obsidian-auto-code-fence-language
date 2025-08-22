@@ -13,7 +13,7 @@
   "author": "botre",
   "license": "MIT",
   "dependencies": {
-    "magika": "^0.3.2"
+    "@ray-d-song/guesslang-js": "^0.1.0"
   },
   "devDependencies": {
     "@types/node": "^16.18.126",
