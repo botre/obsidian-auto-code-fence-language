@@ -1,6 +1,6 @@
 {
   "name": "obsidian-auto-code-fence-language",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Obsidian plugin that automatically detects and adds programming languages to unlabeled code fences",
   "main": "main.js",
   "scripts": {
