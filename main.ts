@@ -87,9 +87,6 @@ export default class AutoCodeFenceLanguagePlugin extends Plugin {
       if (!bestPrediction) {
         return null;
       }
-      console.log(
-        `Detected language: ${bestPrediction.languageId} with confidence ${bestPrediction.confidence}`,
-      );
       if (bestPrediction.confidence < 0.2) {
         return null;
       }
