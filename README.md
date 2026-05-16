@@ -2,7 +2,7 @@
 
 Obsidian plugin that automatically detects and adds programming languages to unlabeled code fences.
 
-Powered by [microsoft/vscode-languagedetection](https://github.com/microsoft/vscode-languagedetection).
+Powered by [guesslang-js](https://github.com/ray-d-song/guesslang-js).
 
 ## How it works
 
