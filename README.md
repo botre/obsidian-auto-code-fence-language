@@ -56,4 +56,8 @@ folder.
 
 ## Known issues
 
-Lack of support for template languages (e.g., JSX, TSX, Vue) due to limitations in the underlying model.
+- Lack of support for template languages (e.g., JSX, TSX, Vue) due to limitations
+  in the underlying model.
+- Short code blocks may not be detected. The underlying model needs a fair amount
+  of code to make a confident prediction; very short snippets often fall below the
+  detection confidence threshold and are left unlabeled.
